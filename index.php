@@ -16,7 +16,7 @@ $conn_mysql = mysqli_connect($hostname, $username, $password, $mysql_dbname);
 if (!$conn_mysql) {
     die("Connection failed: " . mysqli_connect_error());
 }
-
+echo "Conexión a Mysql: Establecida.\n";
 /* Datos de conexion de mi pc, esto habrá que
 verificar con el controlador odbc del cliente *
 /
@@ -392,6 +392,7 @@ if (!$conn_access) {
 
 function closeConecctions($conn_mysql, $conn_access)
 {
+    echo "Cerrando conexiones...";
     mysqli_close(($conn_mysql));
     odbc_close(($conn_access));
 }
