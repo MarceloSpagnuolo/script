@@ -172,7 +172,7 @@ if (!$conn_access) {
                 exit("Error en Insert t_farmaco_producto en Access");
             }
         }
-        echo "Tabla t_farmaco: " . $index . " archivos importados.\n";
+        echo "Tabla t_farmaco_producto: " . $index . " archivos importados.\n";
     } else {
         echo ("la consulta ala tabla t_farmaco_producto no arrojó resultado");
     }
@@ -180,7 +180,10 @@ if (!$conn_access) {
     // TABLA t_laboratorio
 
     //traemos todos de la tabla mysql t_laboratorio
-    $query = "SELECT * FROM t_laboratorio";
+    $query = "SELECT * FROM t_laboratorio 
+                INNER JOIN t_linea USING (ID_LABORATORIO)
+                WHERE ID_PAIS=4
+                GROUP BY ID_LABORATORIO";
     $result_mysql = mysqli_query($conn_mysql, $query);
     if ($result_mysql) {
         //vaciamos t_laboratorio de access si mysql t_laboratorio trae data
@@ -360,7 +363,12 @@ if (!$conn_access) {
     // TABLA via_concentracion
 
     //traemos todos de la tabla mysql t_via_concentracion de Paraguay
-    $query = "SELECT * FROM via_concentracion";
+    $query = "SELECT * FROM via_concentracion
+                INNER JOIN t_farmaco_producto USING (ID_VIACON)
+                INNER JOIN t_producto USING (ID_PRODUCTO)
+                INNER JOIN t_linea USING (ID_LINEA)
+                WHERE ID_PAIS=4
+                GROUP BY ID_VIACON";
     $result_mysql = mysqli_query($conn_mysql, $query);
     if ($result_mysql) {
         //vaciamos via_concentracion de access si mysql via_concentracion trae data
